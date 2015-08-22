@@ -1,13 +1,18 @@
 (function () {
 
   var button = document.getElementById("submit");
+  var key, value = 0;
 
 	// process user input
 	var processUserInput = function() {
     var radioButtons = document.getElementsByName("author");
     for (var i = 0; i < radioButtons.length; i++ ) {
       if (radioButtons[i].checked === true) {
-        console.log(radioButtons[i].id);
+        key = radioButtons[i].id;
+        value++;
+        console.log(key);
+        console.log(value);
+       
       }
     }
   };
@@ -28,6 +33,7 @@
     }
   });
 
-	// send the user input to the server
+
 
 })();
+

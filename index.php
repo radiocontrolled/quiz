@@ -46,13 +46,15 @@
         <div class="col-md-12">
          <div class="panel">
             <h2>Which do you prefer?</h2>
-            <form>
+            <form action="form.php" method="post">
               <fieldset><legend>Choose your favourite option</legend>
               </fieldset>
-              <label>Susan <input type="radio" name="author" id="Susan"></label><br/>
-              <label>Camile <input type="radio" name="author" id="Camile"></label><br/>
-              <button type="submit" value=" Send" class="btn btn-success" id="submit" />Submit</button>
+              <label>Susan <input type="radio" name="author" id="Susan" value="Susan"></label><br/>
+              <label>Camile <input type="radio" name="author" id="Camile" value="Camile"></label><br/>
+               <input type="submit" value="Save"/>
             </form>
+
+          
          </div>
         </div>
     
