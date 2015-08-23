@@ -1,6 +1,8 @@
 <?php 
 
   //print_r( $_POST['author'] );   
+
+  include "toJson.php";
   
   error_reporting(E_ALL); ini_set('display_errors', 1);
 
@@ -13,6 +15,8 @@
   $update = "INSERT INTO `quiz`.`answers` (`name`) VALUES ('" . mysqli_real_escape_string($link, $_POST['author']) .  "')";
 
   mysqli_query($link, $update);
+
+  updateJson();
   
   mysqli_close($link);
 
