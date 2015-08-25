@@ -2,7 +2,7 @@
   
   // error_reporting(E_ALL); ini_set('display_errors', 1);
 
-  header("Location: http://localhost:8888/quiz/"); 
+  header("Location: http://localhost:8888/quiz/index.php"); 
 
   function updateJson () {
 
