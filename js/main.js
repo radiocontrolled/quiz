@@ -8,8 +8,10 @@
   largest = 0, 
   padding = 2, 
   data, 
-  arr; 
-
+  arr, 
+  svg, 
+  scale; 
+  
   var visData = [{name: "Susan", count: 0},{name: "Camile", count: 0}];
   
   d3.json("testData.json", function(error, json) {
@@ -38,7 +40,6 @@
 
 
   var drawChart = function() {
-    var svg, scale; 
     svg = d3.select(results)
       .append("svg")
       .attr({
@@ -72,8 +73,30 @@
   };
 
   var resize = function() {
-    // resize stuff
-  }
+    width =  results.offsetWidth; 
+    height = width/2; 
+
+    scale
+      .range([0, height]);
+    
+    svg.selectAll("rect")
+    .attr({
+      "width": width/arr.length - padding,
+      "height": function (d) {
+        return scale(d); 
+      }, 
+      "x" : function (d,i) {
+        return i * (width / arr.length);
+      }, 
+      "y" : function (d) {
+        return  height - scale(d); 
+      }, 
+      "fill" :  function (d) {
+        return "rgb(243, 156, " + (d * 6) + ")";
+      }
+    });
+
+  };
 
   window.onresize = resize; 
 
