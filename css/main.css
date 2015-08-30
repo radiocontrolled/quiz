@@ -1,0 +1,25 @@
+body, svg {
+  font-size: 16px;
+  color: #333!important;
+}
+
+text {
+  fill : #D35400;
+  font-weight: bold; 
+  font-size: 1.5em;
+}
+
+line {
+  stroke: #D35400;
+}
+
+input[type=submit] {
+  background: #D35400;
+  border: none;
+  color: white;
+  padding: 0.25em 1em 0.25em 1em;
+}
+
+.submissions {
+  color: #D2D7D3;
+}

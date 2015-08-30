@@ -3,41 +3,55 @@
   // visualisation 
 
   var results = document.getElementById("results"),
-  width =  results.offsetWidth, 
-  height = width/2, 
-  largest = 0, 
-  padding = 2, 
-  data, 
-  arr, 
-  svg, 
-  scale; 
+    width =  results.offsetWidth, 
+    height = width/2, 
+    susan = 0, 
+    camile = 0,
+    largest = 0,
+    padding = 2, 
+    data, 
+    arr, 
+    svg, 
+    scale, 
+    line, 
+    rect, 
+    text; 
   
   var visData = [{name: "Susan", count: 0},{name: "Camile", count: 0}];
   
-  d3.json("testData.json", function(error, json) {
+  d3.json("data.json", function(error, json) {
+
+    var submissions = document.getElementById("submissions");
+
     if (error) {
       console.log(error);
     }
     data = json;
- 
-    arr = [];
- 
-    // get the largest score 
-    // for the scale domain 
-    for(var key in data){
-      if(data.hasOwnProperty(key)){
-        if(data[key].value >= largest) {
-          largest = data[key].value;      
-        }
-      }  
-      arr.push(data[key].value);
+
+    for(var i = 0; i < data.length; i++) {
+      if(data[i].name === "Susan") {
+        susan += 1; 
+      }
+      if(data[i].name === "Camile") {
+        camile += 1; 
+      } 
     }
+    arr = [];
+    arr.push(susan);
+    arr.push(camile);
+
+    largest = d3.max(arr);
+
+        
+    var addSubmissions = function() {
+      return arr[0] + arr[1];
+    };
+
+    submissions.innerHTML = addSubmissions();
 
     drawChart();
   
   });
-
-
 
   var drawChart = function() {
     svg = d3.select(results)
@@ -51,12 +65,13 @@
       .domain([0, largest])
       .range([0, height]);
 
-    svg.selectAll("rect")
+    // the bars 
+    rect = svg.selectAll("rect")
       .data(arr)
       .enter()
       .append("rect")
       .attr({
-        "width": width/arr.length - padding,
+        "width": width/arr.length - padding, 
         "height": function (d) {
           return scale(d); 
         }, 
@@ -67,9 +82,36 @@
           return  height - scale(d); 
         }, 
         "fill" :  function (d) {
-          return "rgb(243, 156, " + (d * 6) + ")";
+          return "#D2D7D3";
         }
       });
+
+      // labels
+      text = svg.selectAll("text")
+        .data(arr)
+        .enter()
+        .append("text")
+        .text(function(d){
+          return d; 
+        })
+        .attr({
+          "x" : function (d,i) {
+            return i * (width / arr.length) + ((width / arr.length)/2);
+          }, 
+          "y" : function (d) {
+            return   height - scale(d) + 30;       
+          }, 
+          "text-anchor" : "middle"
+      });
+
+      // an x axis 
+      line = svg.append("line")
+        .attr({
+          "x1" : 0, 
+          "x2" : width - padding,
+          "y1" : height, 
+          "y2" : height
+        });
   };
 
   var resize = function() {
@@ -79,29 +121,38 @@
     scale
       .range([0, height]);
     
-    svg.selectAll("rect")
-    .attr({
-      "width": width/arr.length - padding,
-      "height": function (d) {
-        return scale(d); 
-      }, 
-      "x" : function (d,i) {
-        return i * (width / arr.length);
-      }, 
-      "y" : function (d) {
-        return  height - scale(d); 
-      }, 
-      "fill" :  function (d) {
-        return "rgb(243, 156, " + (d * 6) + ")";
-      }
-    });
+    rect.attr({
+        "width": width/arr.length - padding,
+        "height": function (d) {
+          return scale(d); 
+        }, 
+        "x" : function (d,i) {
+          return i * (width / arr.length);
+        }, 
+        "y" : function (d) {
+          return  height - scale(d); 
+        }
+      });
+
+    text.attr({
+        "x" : function (d,i) {
+          return i * (width / arr.length) + ((width / arr.length)/2);
+        }, 
+        "y" : function (d) {
+          return   height - scale(d) + 30;
+        }
+      });
+
+    line.attr({
+        "x1" : 0, 
+        "x2" : width - padding,
+        "y1" : height, 
+        "y2" : height
+      });
 
   };
 
   window.onresize = resize; 
-
- 
-
 
 })();
 

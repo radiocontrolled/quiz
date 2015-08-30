@@ -36,24 +36,19 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-6">
-         <div class="panel">
-            <h2>Which do you prefer?</h2>
-            <form action="form.php" method="post">
-              <fieldset><legend>Choose your favourite option</legend>
-              </fieldset>
-              <label>Susan <input type="radio" name="author" id="Susan" value="Susan"></label><br/>
-              <label>Camile <input type="radio" name="author" id="Camile" value="Camile"></label><br/>
-               <input type="submit" value="Save" />
-            </form>
-         </div>
+          <h2>Who do you prefer?</h2>
+          <form action="form.php" method="post">
+          <fieldset><legend>Choose your favourite option:</legend>
+          <label>Susan <input type="radio" name="author" id="Susan" value="Susan"></label><br/>
+          <label>Camile <input type="radio" name="author" id="Camile" value="Camile"></label><br/>
+          <input type="submit" value="Save" />
+           </fieldset>
+          </form>
         </div>
         <div class="col-md-6">
-         <div class="panel">
-            <h2>Results</h2>
-          <div id="results">
-
-          </div>
-         </div>
+          <h2>Results</h2>
+          <div class="submissions">Submissions: <span id="submissions"></span></div><br/>
+          <div id="results"></div>
         </div>
     
       </div>
