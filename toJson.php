@@ -1,9 +1,10 @@
 <?php 
   
-  // error_reporting(E_ALL); ini_set('display_errors', 1);
+  error_reporting(E_ALL); ini_set('display_errors', 1);
 
-  header("Location: http://localhost:8888/quiz/index.php"); 
-
+  $location = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+  header("Location: " . $location);
+  
   function updateJson () {
 
     $link = mysqli_connect("localhost", "root", "root", "quiz");
@@ -33,5 +34,4 @@
 
   updateJson();
 
-  
 ?>

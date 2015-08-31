@@ -13,11 +13,18 @@ line {
   stroke: #D35400;
 }
 
-input[type=submit] {
+input[type="submit"] {
   background: #D35400;
   border: none;
   color: white;
   padding: 0.25em 1em 0.25em 1em;
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:active,
+input[type="submit"]:focus {
+  background: #D2D7D3; 
+  color: #D35400 ;
 }
 
 .submissions {

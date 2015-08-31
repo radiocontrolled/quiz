@@ -4,6 +4,7 @@
 
   include "toJson.php";
   
+
   error_reporting(E_ALL); ini_set('display_errors', 1);
 
   $link = mysqli_connect("localhost", "root", "root", "quiz");
@@ -17,7 +18,8 @@
   mysqli_query($link, $update);
 
   updateJson();
-  
+
   mysqli_close($link);
+
 
 ?>

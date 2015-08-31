@@ -16,6 +16,7 @@
                 padding-bottom: 20px;
             }
         </style>
+
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="bower_components/d3/d3.min.js"></script>
@@ -37,12 +38,13 @@
       <div class="row">
         <div class="col-md-6">
           <h2>Who do you prefer?</h2>
-          <form action="form.php" method="post">
-          <fieldset><legend>Choose your favourite option:</legend>
-          <label>Susan <input type="radio" name="author" id="Susan" value="Susan"></label><br/>
-          <label>Camile <input type="radio" name="author" id="Camile" value="Camile"></label><br/>
-          <input type="submit" value="Save" />
-           </fieldset>
+          <form action="form.php" method="post" id="form">
+            <fieldset>
+              <legend>Choose your favourite option:</legend>
+              <label>Susan <input type="radio" name="author" id="Susan" value="Susan"></label><br/>
+              <label>Camile <input type="radio" name="author" id="Camile" value="Camile"></label><br/>
+              <input type="submit" value="Save" />
+            </fieldset>
           </form>
         </div>
         <div class="col-md-6">
@@ -54,7 +56,7 @@
       </div>
 
     </div> <!-- /container -->        
-   <script src="js/main.js"></script>
+   <script src="js/main.js?<?php echo time(); ?>"></script>
      
     </body>
 </html>

@@ -1,5 +1,21 @@
 (function () {
 
+
+  var ele = document.getElementById("form");
+  
+  if(ele.addEventListener){
+    ele.addEventListener("submit", reload, false);  //Modern browsers
+  } 
+  else if (ele.attachEvent){
+    ele.attachEvent('onsubmit', reload);            //Old IE
+  }
+
+  function reload() {
+    window.location.reload();
+    console.log("reloaded");
+    drawChart();
+  };
+
   // visualisation 
 
   var results = document.getElementById("results"),
@@ -15,9 +31,12 @@
     scale, 
     line, 
     rect, 
-    text; 
-  
-  var visData = [{name: "Susan", count: 0},{name: "Camile", count: 0}];
+    text, 
+    horizLabel;
+
+  var requestData = function() {
+
+  }();
   
   d3.json("data.json", function(error, json) {
 
@@ -112,6 +131,15 @@
           "y1" : height, 
           "y2" : height
         });
+
+      // horizontal labels
+      horizLabel = svg.selectAll("g:text")
+        .data(arr)
+        .enter()
+        .append("g")
+        .append("text");
+
+
   };
 
   var resize = function() {
@@ -122,33 +150,33 @@
       .range([0, height]);
     
     rect.attr({
-        "width": width/arr.length - padding,
-        "height": function (d) {
-          return scale(d); 
-        }, 
-        "x" : function (d,i) {
-          return i * (width / arr.length);
-        }, 
-        "y" : function (d) {
-          return  height - scale(d); 
-        }
-      });
+      "width": width/arr.length - padding,
+      "height": function (d) {
+        return scale(d); 
+      }, 
+      "x" : function (d,i) {
+        return i * (width / arr.length);
+      }, 
+      "y" : function (d) {
+        return  height - scale(d); 
+      }
+    });
 
     text.attr({
-        "x" : function (d,i) {
-          return i * (width / arr.length) + ((width / arr.length)/2);
-        }, 
-        "y" : function (d) {
-          return   height - scale(d) + 30;
-        }
-      });
+      "x" : function (d,i) {
+        return i * (width / arr.length) + ((width / arr.length)/2);
+      }, 
+      "y" : function (d) {
+        return   height - scale(d) + 30;
+      }
+    });
 
     line.attr({
-        "x1" : 0, 
-        "x2" : width - padding,
-        "y1" : height, 
-        "y2" : height
-      });
+      "x1" : 0, 
+      "x2" : width - padding,
+      "y1" : height, 
+      "y2" : height
+    });
 
   };
 
