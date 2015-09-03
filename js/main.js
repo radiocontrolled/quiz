@@ -1,24 +1,12 @@
 (function () {
 
-
-  var ele = document.getElementById("form");
-  
-  if(ele.addEventListener){
-    ele.addEventListener("submit", reload, false);  //Modern browsers
-  } 
-  else if (ele.attachEvent){
-    ele.attachEvent('onsubmit', reload);            //Old IE
-  }
-
-  function reload() {
-    window.location.reload();
-    console.log("reloaded");
-    drawChart();
-  };
-
-  // visualisation 
-
+  // function init(){
+  //   window.location.reload(true);
+  //   alert("reloaded");
+  // }
+ 
   var results = document.getElementById("results"),
+    button = document.getElementById("input"),
     width =  results.offsetWidth, 
     height = width/2, 
     susan = 0, 
@@ -32,14 +20,52 @@
     line, 
     rect, 
     text, 
-    horizLabel;
+    horizLabel, 
+    author;
+ 
+  // process user input 
+  // & AJAX request.
+  var processUserInput = function() {
+    var radioButtons = document.getElementsByName("author");
+    var url = "form.php";
+    var xhr = new XMLHttpRequest();
+    for (var i = 0; i < radioButtons.length; i++ ) {
+      if (radioButtons[i].checked === true) {
+        author = "author=" + radioButtons[i].id;
+      }
+    }
+    xhr.open('POST', url, true);
+    console.log(author);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState == 4 && xhr.status == 200) {
+        var return_data = xhr.responseText;
+        console.log(return_data);
 
-  var requestData = function() {
+      }
+    };
+    xhr.send(author);
+  };
 
-  }();
-  
-  d3.json("data.json", function(error, json) {
+  // add click event listener
+  button.addEventListener("click", function (e) {
+    e.preventDefault();
+    processUserInput();
+  });
 
+  // add keydown listener for enter or spacebar for keyboard accessibility 
+  button.addEventListener("keydown", function (e) {
+    e = e || window.event;
+    var key = e.which || e.keyCode;
+    if ((key == 13) || (key ==32)) { 
+      e.preventDefault();
+      processUserInput();
+    }
+  });
+
+   
+  d3.json("data.json", function(error, json)  {
+    
     var submissions = document.getElementById("submissions");
 
     if (error) {
@@ -69,7 +95,7 @@
     submissions.innerHTML = addSubmissions();
 
     drawChart();
-  
+
   });
 
   var drawChart = function() {
@@ -138,8 +164,6 @@
         .enter()
         .append("g")
         .append("text");
-
-
   };
 
   var resize = function() {

@@ -2,8 +2,6 @@
   
   error_reporting(E_ALL); ini_set('display_errors', 1);
 
-  $location = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-  header("Location: " . $location);
   
   function updateJson () {
 
