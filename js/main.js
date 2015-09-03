@@ -1,9 +1,4 @@
 (function () {
-
-  // function init(){
-  //   window.location.reload(true);
-  //   alert("reloaded");
-  // }
  
   var results = document.getElementById("results"),
     button = document.getElementById("input"),
@@ -35,13 +30,12 @@
       }
     }
     xhr.open('POST', url, true);
-    console.log(author);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function() {
       if(xhr.readyState == 4 && xhr.status == 200) {
         var return_data = xhr.responseText;
-        console.log(return_data);
-
+        //console.log(return_data);
+        
       }
     };
     xhr.send(author);
@@ -62,16 +56,10 @@
       processUserInput();
     }
   });
-
    
-  d3.json("data.json", function(error, json)  {
-    
-    var submissions = document.getElementById("submissions");
+  var preProcessDataForViz = function () {
 
-    if (error) {
-      console.log(error);
-    }
-    data = json;
+    var submissions = document.getElementById("submissions");
 
     for(var i = 0; i < data.length; i++) {
       if(data[i].name === "Susan") {
@@ -81,6 +69,7 @@
         camile += 1; 
       } 
     }
+
     arr = [];
     arr.push(susan);
     arr.push(camile);
@@ -96,8 +85,9 @@
 
     drawChart();
 
-  });
-
+  }; 
+    
+ 
   var drawChart = function() {
     svg = d3.select(results)
       .append("svg")
@@ -205,6 +195,16 @@
   };
 
   window.onresize = resize; 
+
+  var requestData =  d3.json("data.json", function(error, json)  {
+     if (error) {
+      console.log(error);
+    }
+    data = json;
+
+    preProcessDataForViz();
+
+  });
 
 })();
 
