@@ -39,6 +39,7 @@
     };
     xhr.send(author);
 
+    window.location.reload(true);
   };
 
   // add click event listener
@@ -58,7 +59,6 @@
   });
    
   var preProcessDataForViz = function () {
-
     var submissions = document.getElementById("submissions");
 
     for(var i = 0; i < data.length; i++) {
@@ -87,7 +87,6 @@
 
   }; 
     
- 
   var drawChart = function() {
     svg = d3.select(results)
       .append("svg")
