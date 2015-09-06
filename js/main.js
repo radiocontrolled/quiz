@@ -16,7 +16,8 @@
     rect, 
     text, 
     horizLabel, 
-    author;
+    author, 
+    poll; 
  
   // process user input 
   // & AJAX request.
@@ -34,11 +35,10 @@
     xhr.onreadystatechange = function() {
       if(xhr.readyState == 4 && xhr.status == 200) {
         var return_data = xhr.responseText;
-        //console.log(return_data);
-        
       }
     };
     xhr.send(author);
+
   };
 
   // add click event listener
@@ -201,7 +201,7 @@
       console.log(error);
     }
     data = json;
-
+    poll = data.length;
     preProcessDataForViz();
 
   });
