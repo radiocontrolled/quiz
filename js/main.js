@@ -12,6 +12,7 @@
     arr, 
     svg, 
     scale, 
+    xscale,
     line, 
     rect, 
     text, 
@@ -30,6 +31,16 @@
         author = "author=" + radioButtons[i].id;
       }
     }
+
+    if(author === undefined) {
+      document.getElementById("error").innerHTML = "Please choose an option.";
+      return;
+    }
+
+    else {
+      document.getElementById("error").innerHTML = "";
+    }
+
     xhr.open('POST', url, true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function() {
@@ -38,8 +49,8 @@
       }
     };
     xhr.send(author);
-
     window.location.reload(true);
+
   };
 
   // add click event listener

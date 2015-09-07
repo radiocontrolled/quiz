@@ -47,6 +47,7 @@
               <label>Camile <input type="radio" name="author" id="Camile" value="Camile"></label><br/>
              <!--  <input type="submit" value="Save" /> -->
              <button id="input">Save</button>
+             <span id="error"></span>
             </fieldset>
           </form>
         </div>

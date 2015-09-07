@@ -30,3 +30,10 @@ input[type="submit"]:focus {
 .submissions {
   color: #D2D7D3;
 }
+
+#error {
+  color: #d35400;
+  font-size: 1em;
+  padding-left: 0.5em;
+  font-style: italic;
+}
